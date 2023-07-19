@@ -2,9 +2,7 @@ import 'package:admin_helpdesk/components/card_horizontal.dart';
 import 'package:admin_helpdesk/components/card_vertical.dart';
 import 'package:admin_helpdesk/data/course.dart';
 import 'package:admin_helpdesk/screens/course_detail_screen.dart';
-import 'package:admin_helpdesk/screens/course_screen.dart';
 import 'package:admin_helpdesk/theme.dart';
-import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animate_do/animate_do.dart';
@@ -42,14 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Center(
                     child: Image.asset(
                       "assets/images/logo.png",
-                      width: 100,
-                      height: 100,
+                      width: 150,
+                      height: 150,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 10,
                 ),
                 FadeInRight(
                   delay: const Duration(milliseconds: 1000),
@@ -70,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 FadeInRight(
                   delay: const Duration(milliseconds: 1200),
                   child: Text(
-                    'Popular Course',
+                    'Materi Populer',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -83,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 FadeInRight(
                   delay: const Duration(milliseconds: 1300),
                   child: SizedBox(
-                    height: 250,
+                    height: 280,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -101,13 +99,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
                 FadeInUp(
                   delay: const Duration(milliseconds: 1400),
                   child: Text(
-                    'Articles',
+                    'Materi Favorit',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,

@@ -257,7 +257,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               ),
             ),
             child: Text(
-              "Pelajari Sekarang",
+              "Tonton Video Sekarang",
               style: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

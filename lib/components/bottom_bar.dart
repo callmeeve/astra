@@ -58,11 +58,11 @@ class _BottomBarState extends State<BottomBar> {
               tabs: const [
                 GButton(
                   icon: CarbonIcons.home,
-                  text: 'Home',
+                  text: 'Beranda',
                 ),
                 GButton(
                   icon: CarbonIcons.document,
-                  text: 'Course',
+                  text: 'Materi',
                 ),
                 GButton(
                   icon: CarbonIcons.table_built,
