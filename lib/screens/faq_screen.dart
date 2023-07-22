@@ -1,6 +1,5 @@
 import 'package:admin_helpdesk/theme.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -166,7 +165,7 @@ class _FAQScreenState extends State<FAQScreen> {
                                       horizontal: 2,
                                     ),
                                     child: Text(
-                                      "PDF",
+                                      "Cara Register Email di Zahir",
                                       style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         color: primaryColor,
@@ -205,7 +204,7 @@ class _FAQScreenState extends State<FAQScreen> {
                                       horizontal: 2,
                                     ),
                                     child: Text(
-                                      "PPT (Register Ulang Zahir (Zira Unregister))",
+                                      "Register Ulang Zahir (Zira Unregister)",
                                       style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         color: primaryColor,
@@ -244,7 +243,7 @@ class _FAQScreenState extends State<FAQScreen> {
                                       horizontal: 2,
                                     ),
                                     child: Text(
-                                      "PPT (Register Ulang Zahir (Zira Expired))",
+                                      "Register Ulang Zahir (Zira Expired)",
                                       style: GoogleFonts.poppins(
                                         fontSize: 14,
                                         color: primaryColor,

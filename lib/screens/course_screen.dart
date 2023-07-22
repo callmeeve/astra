@@ -50,113 +50,115 @@ class _CourseScreenState extends State<CourseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const CustomSlider(
-            items: [
-              "assets/images/4.jpg",
-              "assets/images/10.jpg",
-              "assets/images/7.jpg",
-              "assets/images/5.jpg",
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
+      body: SingleChildScrollView(
+        child: Column(
+          // padding: EdgeInsets.zero,
+          children: [
+            const CustomSlider(
+              items: [
+                "assets/images/4.jpg",
+                "assets/images/10.jpg",
+                "assets/images/7.jpg",
+                "assets/images/5.jpg",
+              ],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Form(
-                  child: TextFormField(
-                    onChanged: (value) => filterCourses(value),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: whiteColor,
-                      hintText: "Search courses",
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
+            const SizedBox(
+              height: 10.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Form(
+                    child: TextFormField(
+                      onChanged: (value) => filterCourses(value),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: whiteColor,
+                        hintText: "Search courses",
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          borderSide: BorderSide.none,
                         ),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          borderSide: BorderSide.none,
                         ),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          borderSide: BorderSide.none,
                         ),
-                        borderSide: BorderSide.none,
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          borderSide: BorderSide.none,
                         ),
-                        borderSide: BorderSide.none,
-                      ),
-                      prefixIcon: const Padding(
-                        padding: EdgeInsets.all(14),
-                        child: Icon(
-                          CarbonIcons.search,
-                          color: primaryColor,
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.all(14),
+                          child: Icon(
+                            CarbonIcons.search,
+                            color: primaryColor,
+                          ),
                         ),
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 16 / 2,
-                        ),
-                        child: SizedBox(
-                          width: 48,
-                          height: 48,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 16 / 2,
+                          ),
+                          child: SizedBox(
+                            width: 48,
+                            height: 48,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
                                 ),
                               ),
+                              onPressed: () {},
+                              child:
+                                  SvgPicture.asset("assets/icons/Filter.svg"),
                             ),
-                            onPressed: () {},
-                            child: SvgPicture.asset("assets/icons/Filter.svg"),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  width: double.infinity,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: filteredCourses.length,
-                    itemBuilder: (context, index) {
-                      final course = filteredCourses[index];
-                      return VerticalCard(
-                        course: course,
-                        onTap: () => navigateToCourseDetails(
-                          context,
-                          course,
-                        ),
-                      );
-                    },
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true, // This will remove unnecessary spacing
+                      itemCount: filteredCourses.length,
+                      itemBuilder: (context, index) {
+                        final course = filteredCourses[index];
+                        return VerticalCard(
+                          course: course,
+                          onTap: () => navigateToCourseDetails(
+                            context,
+                            course,
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
