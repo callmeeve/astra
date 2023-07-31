@@ -137,10 +137,9 @@ class _CourseScreenState extends State<CourseScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 2.2,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true, // This will remove unnecessary spacing
                       itemCount: filteredCourses.length,
                       itemBuilder: (context, index) {
                         final course = filteredCourses[index];
