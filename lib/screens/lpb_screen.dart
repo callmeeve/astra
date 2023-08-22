@@ -127,7 +127,7 @@ class _LPBScreenState extends State<LPBScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height,
                   // width: double.infinity,
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),

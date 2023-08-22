@@ -137,7 +137,7 @@ class _CourseScreenState extends State<CourseScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 2.2,
+                    height: 450,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: filteredCourses.length,

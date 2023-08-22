@@ -1,12 +1,51 @@
-// import 'dart:io';
-// import 'package:dio/dio.dart';
+import 'dart:io';
 import 'package:admin_helpdesk/data/lpb.dart';
 import 'package:admin_helpdesk/theme.dart';
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:path_provider/path_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart' show ByteData, rootBundle;
+
+class FileStorage {
+  static Future<String> getExternalDocumentPath() async {
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+    Directory _directory = Directory("");
+    if (Platform.isAndroid) {
+      _directory = Directory("/storage/emulated/0/Download");
+    } else {
+      _directory = await getApplicationDocumentsDirectory();
+    }
+
+    final exPath = _directory.path;
+    await Directory(exPath).create(recursive: true);
+    return exPath;
+  }
+
+  static Future<String> get _localPath async {
+    final String directory = await getExternalDocumentPath();
+    return directory;
+  }
+
+  static Future<void> downloadAsset(String assetPath, String fileName) async {
+    final ByteData data = await rootBundle.load(assetPath);
+    final List<int> bytes = data.buffer.asUint8List();
+
+    final path = await _localPath;
+    final file = File('$path/$fileName');
+
+    try {
+      await file.writeAsBytes(bytes);
+      print("File saved to: ${file.path}");
+    } catch (e) {
+      print("Error saving file: $e");
+    }
+  }
+}
 
 class VerticalList extends StatefulWidget {
   final LPB lpb;
@@ -17,87 +56,25 @@ class VerticalList extends StatefulWidget {
 }
 
 class _VerticalListState extends State<VerticalList> {
-  // bool _downloading = false;
-  // bool _downloaded = false;
+  void _downloadFile(String assetPath, String fileName) {
+    FileStorage.downloadAsset(assetPath, fileName);
 
-  // Future<void> _downloadFile() async {
-  //   setState(() {
-  //     _downloading = true;
-  //   });
-
-  //   Dio dio = Dio();
-  //   String fileName = widget.lpb.name.split('/').last;
-
-  //   try {
-  //     Directory appDocumentsDirectory =
-  //         await getApplicationDocumentsDirectory();
-  //     String filePath = '${appDocumentsDirectory.path}/$fileName';
-
-  //     await dio.download(widget.lpb.fileUrl, filePath);
-
-  //     print('File downloaded to: $filePath');
-  //     setState(() {
-  //       _downloaded = true;
-  //     });
-
-  //     // Show the transparent dialog containing the file name and path
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           backgroundColor: whiteColor,
-  //           content: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               const Text(
-  //                 "File downloaded successfully!",
-  //                 style: TextStyle(
-  //                   color: blackColor,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //               const SizedBox(height: 10),
-  //               Text(
-  //                 "File Name: $fileName",
-  //                 style: const TextStyle(color: blackColor),
-  //               ),
-  //               Text(
-  //                 "Saved Path: $filePath",
-  //                 style: const TextStyle(color: blackColor),
-  //               ),
-  //               const SizedBox(height: 20),
-  //               ElevatedButton(
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop(); // Close the dialog
-  //                 },
-  //                 child: const Text("OK"),
-  //               ),
-  //             ],
-  //           ),
-  //         );
-  //       },
-  //     );
-  //   } catch (e) {
-  //     print('Error while downloading file: $e');
-  //   } finally {
-  //     setState(() {
-  //       _downloading = false;
-  //     });
-  //   }
-  // }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'File $fileName downloaded successfully',
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Uri file = Uri.parse(widget.lpb.fileUrl);
-
-    Future<void> _fileUrl() async {
-      if (!await launchUrl(file)) {
-        throw Exception('Could not launch $file');
-      }
-    }
-
     return InkWell(
-      onTap: _fileUrl,
+      onTap: () {
+        _downloadFile(widget.lpb.fileUrl, widget.lpb.name);
+      },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Container(
