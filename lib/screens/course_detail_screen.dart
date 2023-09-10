@@ -1,7 +1,7 @@
+import 'package:admin_helpdesk/components/custom_video_player.dart';
 import 'package:admin_helpdesk/theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:admin_helpdesk/data/course.dart';
-import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,16 +22,10 @@ class CourseDetailScreen extends StatefulWidget {
 class _CourseDetailScreenState extends State<CourseDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final Uri video = Uri.parse(widget.course.videoUrl);
     final Uri docx = Uri.parse(widget.course.docUrl);
     final Uri ppt = Uri.parse(widget.course.pptUrl);
 
     // ignore: no_leading_underscores_for_local_identifiers
-    Future<void> _videoUrl() async {
-      if (!await launchUrl(video)) {
-        throw Exception('Could not launch $video');
-      }
-    }
 
     // ignore: no_leading_underscores_for_local_identifiers
     Future<void> _docUrl() async {
@@ -53,31 +47,9 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    widget.course.imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 25.0,
-                    left: 10.0,
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(CarbonIcons.arrow_left),
-                    color: whiteColor,
-                    iconSize: 24,
-                  ),
-                ),
-              ],
+            CustomVideoPlayer(
+              videoUrl: widget.course.videoUrl,
+              autoplay: true,
             ),
             const SizedBox(height: 16),
             Column(
@@ -235,35 +207,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               ],
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        height: 100 / 1.2,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ElevatedButton(
-            onPressed: _videoUrl,
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                primaryColor,
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    50.0,
-                  ), // Ubah radius sesuai kebutuhan
-                ),
-              ),
-            ),
-            child: Text(
-              "Tonton Video Sekarang",
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:admin_helpdesk/components/custom_video_player.dart';
 import 'package:admin_helpdesk/theme.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,6 @@ class FAQScreen extends StatefulWidget {
 class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
-    final Uri video = Uri.parse(
-        'https://drive.google.com/file/d/14CcYkTtbpLnkSuxqJdhaPs_NbhU-ZYm2/view?usp=drive_link');
     final Uri pdf = Uri.parse(
         'https://drive.google.com/file/d/1XkfpUHQb4Wb3KNtXIXROPXh2CWGD2CCP/view?usp=drive_link');
     final Uri ppt = Uri.parse(
@@ -27,11 +26,6 @@ class _FAQScreenState extends State<FAQScreen> {
         'https://docs.google.com/presentation/d/1mtjUoyX-1BHfBSzPEMHz5LDwoLqUZJVL/edit?usp=drive_link&ouid=115101106298013546394&rtpof=true&sd=true');
 
     // ignore: no_leading_underscores_for_local_identifiers
-    Future<void> _videoUrl() async {
-      if (!await launchUrl(video)) {
-        throw Exception('Could not launch $video');
-      }
-    }
 
     // ignore: no_leading_underscores_for_local_identifiers
     Future<void> _docUrl() async {
@@ -60,13 +54,9 @@ class _FAQScreenState extends State<FAQScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                "assets/images/11.jpg",
-                fit: BoxFit.cover,
-              ),
+            const CustomVideoPlayer(
+              videoUrl: "assets/videos/faq.mp4",
+              autoplay: false,
             ),
             const SizedBox(height: 16),
             Column(
@@ -263,35 +253,6 @@ class _FAQScreenState extends State<FAQScreen> {
               ],
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        height: 100 / 1.2,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ElevatedButton(
-            onPressed: _videoUrl,
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                primaryColor,
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    50.0,
-                  ), // Ubah radius sesuai kebutuhan
-                ),
-              ),
-            ),
-            child: Text(
-              "Tonton Video Sekarang",
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
         ),
       ),
     );
