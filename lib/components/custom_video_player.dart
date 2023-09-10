@@ -4,12 +4,10 @@ import 'package:chewie/chewie.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
   final String videoUrl;
-  final bool autoplay;
 
   const CustomVideoPlayer({
     Key? key,
     required this.videoUrl,
-    required this.autoplay,
   }) : super(key: key);
 
   @override
@@ -32,7 +30,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   void _initializeController() async {
     _chewieController = ChewieController(
       videoPlayerController: _controller,
-      autoPlay: false,
+      autoPlay: true,
       looping: false,
       aspectRatio: 16 / 9,
       // Menggunakan kontrol bahan

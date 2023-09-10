@@ -49,7 +49,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           children: [
             CustomVideoPlayer(
               videoUrl: widget.course.videoUrl,
-              autoplay: true,
             ),
             const SizedBox(height: 16),
             Column(

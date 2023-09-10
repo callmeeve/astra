@@ -56,7 +56,6 @@ class _FAQScreenState extends State<FAQScreen> {
           children: [
             const CustomVideoPlayer(
               videoUrl: "assets/videos/faq.mp4",
-              autoplay: false,
             ),
             const SizedBox(height: 16),
             Column(
